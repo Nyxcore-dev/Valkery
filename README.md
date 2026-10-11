@@ -2,6 +2,10 @@
 
 Valkery is a Forge-first starter equipment mod for Minecraft 1.20.1. This repository currently builds one loader target: Forge. The common gameplay classes use the Minecraft 1.20.1 API and are separated from Forge registration and event handling so other loader modules can be added later.
 
+## License
+
+Valkery is **All Rights Reserved**. See [`LICENSE`](LICENSE) for the usage terms. Public access to this repository does not grant permission to reuse, modify, or redistribute its source code. Players may download and use the released mod jar for its intended purpose. This notice does not technically disable GitHub's fork controls.
+
 ## Included
 
 - A selectable Valkyrie origin in Origins' standard origin layer.
