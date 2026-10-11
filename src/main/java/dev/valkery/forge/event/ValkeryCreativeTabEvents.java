@@ -16,6 +16,7 @@ public final class ValkeryCreativeTabEvents {
     public static void addItemsToCombatTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(ValkeryItems.SPEAR_OF_THE_OATH);
+            event.accept(ValkeryItems.BOW_OF_THE_OATH);
         }
     }
 }

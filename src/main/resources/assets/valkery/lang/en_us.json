@@ -1,5 +1,6 @@
 {
   "item.valkery.spear_of_the_oath": "Spear of the Oath",
+  "item.valkery.bow_of_the_oath": "Bow of the Oath",
   "origin.valkery.valkyrie": "Valkyrie",
   "origin.valkery.valkyrie.description": "A winged champion chosen by the All-Father. Your divine vitality grants four extra hearts. Your Icarus wings are bound to you; movement trains your flight mastery. Flight consumes a little hunger, and tired wings or a heavy blow begin a safe, slow descent. Any bow deals 25% more damage, while melee attacks deal 25% less.",
   "power.valkery.valkyrie_wings.name": "Wings of the Valkyrie",
@@ -41,5 +42,7 @@
   "advancements.valkery.master_of_skies.description": "Reach the Skywarden flight mastery rank",
   "tooltip.valkery.spear.lightning": "Call a lightning bolt at the point you are aiming at.",
   "tooltip.valkery.spear.cooldown": "Cooldown: 30 seconds",
-  "tooltip.valkery.archery.bonus": "Valkyries deal 25% more damage with bows"
+  "tooltip.valkery.archery.bonus": "Valkyries deal 25% more damage with bows",
+  "tooltip.valkery.bow.oath": "Forged under the All-Father's gaze",
+  "tooltip.valkery.bow.desc": "A superior longbow. Pairs perfectly with Divine Smite."
 }

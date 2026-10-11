@@ -15,11 +15,12 @@ Valkery is **All Rights Reserved**. See [`LICENSE`](LICENSE) for the usage terms
 - Valkyries have four extra hearts, deal 25% more damage with any bow, and deal 25% less melee damage. Valkyrie bow draws and shots add divine chime tones. Fully charged shots from any bow have a configurable, provisional 10% chance to trigger Divine Smite: a stronger arrow that pierces up to three targets and loses 35% damage after each hit.
 - A Valkery advancement tab tracks first flight, completing an endurance cycle, Divine Smite, the spear's lightning, and reaching Skywarden.
 - Any bow can be used; arrows are still required and are consumed normally.
+- The craftable Bow of the Oath has a custom model, drawn textures, a longer default projectile range, and 768 durability. Valkyrie bow mastery and Divine Smite still work with any bow.
 - The origin also grants Origins' aerial-launch power.
 - The Spear of the Oath has 5 total attack damage, a slower attack speed, and a 16-block aimed lightning strike on right-click with a 30-second cooldown. The strike adds attributed lightning, electric sparks, end-rod glints, thunder audio, and in-game ability/cooldown tooltips.
-- The Spear of the Oath appears in the Combat creative tab.
+- The Spear of the Oath and Bow of the Oath appear in the Combat creative tab and have crafting recipes.
 
-The selected wings are automatically equipped into Icarus' Curios back slot and restored if removed. Slow Falling is applied only during a Valkyrie safe descent, not as a permanent origin power. The removed Valkyrie armor set is not part of this version. Custom Valkery wing rendering, aerial dash, and a separate temporary divine blessing are deferred. Minecraft 1.20.1 does not expose the later vanilla player interaction-range attribute, so this starter does not claim to add spear reach.
+The selected wings are automatically equipped into Icarus' Curios back slot and restored if removed. Slow Falling is applied only during a Valkyrie safe descent, not as a permanent origin power. The Valkyrie armor set is not included. Custom Valkery wing rendering, aerial dash, and a separate temporary divine blessing are deferred. Minecraft 1.20.1 does not expose the later vanilla player interaction-range attribute, so this starter does not claim to add spear reach.
 
 **Origins is optional; Icarus and Curios are required.** Valkery loads without Origins, but the Valkyrie Origin selection, its starting wings, four-heart bonus, and Origins-provided aerial powers are available only when Origins is installed. Without Origins, obtain Icarus wings separately; Valkery's wing, flight, bow, spear, and mastery mechanics activate for players with Icarus wings. Forge checks for Icarus mod ID `icarus` version `2.11.0` or later and Curios mod ID `curios` version `5.2.0` or later at load time.
 
@@ -39,7 +40,7 @@ Install Java 17, then run in PowerShell:
 .\gradlew.bat build
 ```
 
-The Forge jar is written to `build\libs\valkery-0.1.7.jar`. To launch the development client:
+The Forge jar is written to `build\libs\valkery-0.1.8.jar`. To launch the development client:
 
 ```powershell
 .\gradlew.bat runClient
@@ -49,11 +50,11 @@ The project pins Minecraft 1.20.1, Forge 47.4.26, ForgeGradle 6.0.54, official M
 
 ## Download
 
-Players can download the current **beta** Forge jar from the [Valkery GitHub Releases](https://github.com/Nyxcore-dev/Valkery/releases) page. Choose the `valkery-0.1.7.jar` asset for Minecraft 1.20.1 and Forge; install Icarus and Curios as required dependencies. This is a beta build, not a full/stable release, and bugs or compatibility issues may be present. Origins is only needed for the Valkyrie Origin selection and its Origin-provided powers.
+Players can download the current published **beta** Forge jar from the [Valkery GitHub Releases](https://github.com/Nyxcore-dev/Valkery/releases) page. The current `valkery-0.1.7.jar` release predates the Bow of the Oath source additions; those changes are not downloadable until a new beta release is published. The next development build is version 0.1.8. Beta builds are not stable releases, and bugs or compatibility issues may be present. Install Icarus and Curios as required dependencies. Origins is only needed for the Valkyrie Origin selection and its Origin-provided powers.
 
 ## Test in game
 
-With Origins installed, choose Valkyrie from the standard Origin selection screen when creating a world; without Origins, obtain Icarus wings separately. Wings equip automatically in Icarus' back slot and are restored if removed. Choose a color and type with `/valkery wings set dragon purple`, or a unique style with `/valkery wings unique flandres`; `/valkery wings` reports the current selection and usage. Double-tap jump to fly. Slow Falling is granted only during protected descents. Craft or find any bow and arrows; Valkyrie bow damage and Divine Smite apply to any bow. Successful bow hits grant bow XP; use `/valkery bow` to view the skill and `/valkery bow upgrade` to buy a Divine Smite upgrade. Check flight rank and progress with `/valkery mastery`. For balancing, test hunger use, the 60-second Initiate fatigue, grounded recovery, low-food cutoff, and heavy-hit safe descent. Flight XP should only accrue while moving. At higher flight ranks, verify endurance, hunger efficiency, and recovery changes. Use fully charged bow shots against multiple targets to test Divine Smite damage falloff, and test its configured chance over many shots. Verify all five advancements and the spear lightning/cooldown in-game.
+With Origins installed, choose Valkyrie from the standard Origin selection screen when creating a world; without Origins, obtain Icarus wings separately. Wings equip automatically in Icarus' back slot and are restored if removed. Choose a color and type with `/valkery wings set dragon purple`, or a unique style with `/valkery wings unique flandres`; `/valkery wings` reports the current selection and usage. Double-tap jump to fly. Slow Falling is granted only during protected descents. Craft the Bow of the Oath or use any bow and arrows; Valkyrie bow damage and Divine Smite apply to any bow. Successful bow hits grant bow XP; use `/valkery bow` to view the skill and `/valkery bow upgrade` to buy a Divine Smite upgrade. Check flight rank and progress with `/valkery mastery`. For balancing, test hunger use, the 60-second Initiate fatigue, grounded recovery, low-food cutoff, and heavy-hit safe descent. Flight XP should only accrue while moving. At higher flight ranks, verify endurance, hunger efficiency, and recovery changes. Use fully charged bow shots against multiple targets to test Divine Smite damage falloff, and test its configured chance over many shots. Verify all five advancements and the spear lightning/cooldown in-game.
 
 Build validation checks Java compilation, JSON syntax, advancement/power links, and jar packaging. Gameplay, multiplayer synchronization, hunger pacing, and proc balance still require an actual Minecraft 1.20.1 instance with Forge and Icarus installed; Origins and its Connector dependencies are needed only to test the Origin selection and powers.
 
