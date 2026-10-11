@@ -16,13 +16,20 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -51,6 +58,8 @@ public final class ValkeryGameplayEvents {
     private static final String DIVINE_SMITE_TAG = "valkery_divine_smite";
     private static final String SMITE_FALLOFF_TAG = "valkery_smite_falloff";
     private static final String SMITE_HITS_TAG = "valkery_smite_hits";
+    private static final String BOW_REFUND_TICK = "valkery_bow_refund_tick";
+    private static final String BOW_REFUND_STACK = "valkery_bow_refund_stack";
 
     private ValkeryGameplayEvents() {
     }
@@ -100,7 +109,57 @@ public final class ValkeryGameplayEvents {
     }
 
     @SubscribeEvent
+    public static void onValkyrieBowNock(ArrowNockEvent event) {
+        Player player = event.getEntity();
+        if (event.hasAmmo() || !isValkyrie(player)) {
+            return;
+        }
+
+        ItemStack arrow = new ItemStack(Items.ARROW);
+        if (!player.getInventory().add(arrow)) {
+            return;
+        }
+        player.startUsingItem(event.getHand());
+        event.setAction(InteractionResultHolder.consume(event.getBow()));
+    }
+
+    @SubscribeEvent
+    public static void onValkyrieBowRelease(ArrowLooseEvent event) {
+        Player player = event.getEntity();
+        ItemStack bow = event.getBow();
+        if (player.level().isClientSide
+                || !isValkyrie(player)
+                || player.getAbilities().instabuild
+                || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, bow) > 0) {
+            return;
+        }
+
+        ItemStack projectile = player.getProjectile(bow);
+        if (!projectile.isEmpty()) {
+            CompoundTag playerData = player.getPersistentData();
+            playerData.putLong(BOW_REFUND_TICK, player.level().getGameTime());
+            playerData.put(BOW_REFUND_STACK, projectile.copyWithCount(1).save(new CompoundTag()));
+        }
+    }
+
+    @SubscribeEvent
     public static void onValkyrieArrowSpawn(EntityJoinLevelEvent event) {
+        if (!event.getLevel().isClientSide
+                && event.getEntity() instanceof AbstractArrow arrow
+                && arrow.getOwner() instanceof ServerPlayer player
+                && isValkyrie(player)
+                && player.getPersistentData().contains(BOW_REFUND_TICK)
+                && player.getPersistentData().getLong(BOW_REFUND_TICK) == event.getLevel().getGameTime()) {
+            player.getPersistentData().remove(BOW_REFUND_TICK);
+            CompoundTag playerData = player.getPersistentData();
+            ItemStack refund = ItemStack.of(playerData.getCompound(BOW_REFUND_STACK));
+            playerData.remove(BOW_REFUND_STACK);
+            arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
+            if (!refund.isEmpty() && !player.getInventory().add(refund)) {
+                player.drop(refund, false);
+            }
+        }
+
         if (event.getLevel().isClientSide
                 || !(event.getEntity() instanceof Arrow arrow)
                 || !(arrow.getOwner() instanceof ServerPlayer player)

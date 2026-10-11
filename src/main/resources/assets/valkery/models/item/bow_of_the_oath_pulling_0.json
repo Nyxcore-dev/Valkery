@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/bow",
-  "textures": {
-    "layer0": "valkery:item/bow_of_the_oath_pulling_0"
-  }
-}
