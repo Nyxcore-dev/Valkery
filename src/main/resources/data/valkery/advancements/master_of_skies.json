@@ -1,0 +1,23 @@
+{
+  "parent": "valkery:wings_of_endurance",
+  "display": {
+    "icon": {
+      "item": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "advancements.valkery.master_of_skies.title"
+    },
+    "description": {
+      "translate": "advancements.valkery.master_of_skies.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "reached_skywarden": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "parent": "valkery:first_flight",
+  "display": {
+    "icon": {
+      "item": "valkery:spear_of_the_oath"
+    },
+    "title": {
+      "translate": "advancements.valkery.oath_calls_thunder.title"
+    },
+    "description": {
+      "translate": "advancements.valkery.oath_calls_thunder.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "summoned_lightning": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

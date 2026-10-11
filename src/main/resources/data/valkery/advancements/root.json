@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "valkery:spear_of_the_oath"
+    },
+    "title": {
+      "translate": "advancements.valkery.root.title"
+    },
+    "description": {
+      "translate": "advancements.valkery.root.description"
+    },
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "began_oath": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

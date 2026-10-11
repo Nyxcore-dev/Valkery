@@ -1,0 +1,23 @@
+{
+  "parent": "valkery:first_flight",
+  "display": {
+    "icon": {
+      "item": "icarus:white_feathered_wings"
+    },
+    "title": {
+      "translate": "advancements.valkery.wings_of_endurance.title"
+    },
+    "description": {
+      "translate": "advancements.valkery.wings_of_endurance.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "completed_endurance": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

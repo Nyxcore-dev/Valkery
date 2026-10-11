@@ -1,0 +1,8 @@
+{
+  "type": "apoli:starting_equipment",
+  "stack": {
+    "item": "icarus:white_feathered_wings",
+    "amount": 1
+  },
+  "recurrent": false
+}

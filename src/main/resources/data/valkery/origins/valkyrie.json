@@ -1,0 +1,13 @@
+{
+  "powers": [
+    "valkery:valkyrie_wings",
+    "valkery:valkyrie_vitality",
+    "origins:launch_into_air",
+    "origins:aerial_combatant"
+  ],
+  "icon": {
+    "item": "valkery:spear_of_the_oath"
+  },
+  "order": 10,
+  "impact": 2
+}
