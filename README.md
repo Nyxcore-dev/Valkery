@@ -45,7 +45,7 @@ The project pins Minecraft 1.20.1, Forge 47.4.26, ForgeGradle 6.0.54, official M
 
 ## Download
 
-Players can download the compiled Forge jar from the [Valkery GitHub Releases](https://github.com/Nyxcore-dev/Valkery/releases) page. Choose the `valkery-0.1.7.jar` asset for Minecraft 1.20.1 and Forge; install Icarus and Curios as required dependencies. Origins is only needed for the Valkyrie Origin selection and its Origin-provided powers.
+Players can download the current **beta** Forge jar from the [Valkery GitHub Releases](https://github.com/Nyxcore-dev/Valkery/releases) page. Choose the `valkery-0.1.7.jar` asset for Minecraft 1.20.1 and Forge; install Icarus and Curios as required dependencies. This is a beta build, not a full/stable release. Origins is only needed for the Valkyrie Origin selection and its Origin-provided powers.
 
 ## Test in game
 
