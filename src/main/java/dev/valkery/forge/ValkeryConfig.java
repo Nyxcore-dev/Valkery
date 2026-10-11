@@ -17,10 +17,15 @@ public final class ValkeryConfig {
     public static final ForgeConfigSpec.DoubleValue SKYWARDEN_HUNGER_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue WINDBORNE_EXPERIENCE;
     public static final ForgeConfigSpec.IntValue SKYWARDEN_EXPERIENCE;
+    public static final ForgeConfigSpec.IntValue AERIAL_DASH_COOLDOWN_SECONDS;
+    public static final ForgeConfigSpec.DoubleValue AERIAL_DASH_FORWARD_BOOST;
+    public static final ForgeConfigSpec.DoubleValue AERIAL_DASH_VERTICAL_BOOST;
     public static final ForgeConfigSpec.DoubleValue DIVINE_SMITE_CHANCE;
     public static final ForgeConfigSpec.DoubleValue DIVINE_SMITE_DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue DIVINE_SMITE_PIERCE_TARGETS;
     public static final ForgeConfigSpec.DoubleValue DIVINE_SMITE_FALLOFF;
+    public static final ForgeConfigSpec.DoubleValue GALE_ARROW_CHANCE;
+    public static final ForgeConfigSpec.IntValue GALE_ARROW_SLOWNESS_TICKS;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -41,6 +46,15 @@ public final class ValkeryConfig {
         SKYWARDEN_HUNGER_MULTIPLIER = builder.defineInRange("skywardenHungerMultiplier", 0.55D, 0.1D, 1.0D);
         WINDBORNE_EXPERIENCE = builder.defineInRange("windborneExperience", 600, 1, 100000);
         SKYWARDEN_EXPERIENCE = builder.defineInRange("skywardenExperience", 1800, 2, 100000);
+        AERIAL_DASH_COOLDOWN_SECONDS = builder
+                .comment("Cooldown for the Windborne+ aerial dash ability.")
+                .defineInRange("aerialDashCooldownSeconds", 20, 1, 300);
+        AERIAL_DASH_FORWARD_BOOST = builder
+                .comment("Forward velocity added by /valkery dash.")
+                .defineInRange("aerialDashForwardBoost", 1.4D, 0.1D, 5.0D);
+        AERIAL_DASH_VERTICAL_BOOST = builder
+                .comment("Upward velocity added by /valkery dash.")
+                .defineInRange("aerialDashVerticalBoost", 0.35D, 0.0D, 3.0D);
         builder.pop();
 
         builder.push("archery");
@@ -50,6 +64,12 @@ public final class ValkeryConfig {
         DIVINE_SMITE_DAMAGE_MULTIPLIER = builder.defineInRange("divineSmiteDamageMultiplier", 1.5D, 1.0D, 10.0D);
         DIVINE_SMITE_PIERCE_TARGETS = builder.defineInRange("divineSmitePierceTargets", 3, 1, 10);
         DIVINE_SMITE_FALLOFF = builder.defineInRange("divineSmiteDamageFalloff", 0.65D, 0.1D, 1.0D);
+        GALE_ARROW_CHANCE = builder
+                .comment("Chance for a fully charged critical Valkyrie shot to become a Gale Arrow at bow mastery level 3 or higher.")
+                .defineInRange("galeArrowChance", 0.20D, 0.0D, 1.0D);
+        GALE_ARROW_SLOWNESS_TICKS = builder
+                .comment("Duration of Slowness applied when a Gale Arrow hits.")
+                .defineInRange("galeArrowSlownessTicks", 40, 1, 600);
         builder.pop();
         SPEC = builder.build();
     }

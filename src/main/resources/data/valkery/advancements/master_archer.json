@@ -1,0 +1,23 @@
+{
+  "parent": "valkery:first_flight",
+  "display": {
+    "icon": {
+      "item": "minecraft:enchanted_book"
+    },
+    "title": {
+      "translate": "advancements.valkery.master_archer.title"
+    },
+    "description": {
+      "translate": "advancements.valkery.master_archer.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "mastered_bow_magic": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

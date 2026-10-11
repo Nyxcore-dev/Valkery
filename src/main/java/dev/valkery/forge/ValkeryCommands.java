@@ -40,6 +40,10 @@ public final class ValkeryCommands {
         dispatcher.register(Commands.literal("valkery")
                 .then(Commands.literal("mastery")
                         .executes(context -> showMastery(context.getSource().getPlayerOrException())))
+                .then(Commands.literal("dash")
+                        .executes(context -> ValkeryGameplayEvents.activateAerialDash(
+                                context.getSource().getPlayerOrException()
+                        ) ? 1 : 0))
                 .then(Commands.literal("bow")
                         .executes(context -> showBowMastery(context.getSource().getPlayerOrException()))
                         .then(Commands.literal("upgrade")
@@ -139,6 +143,9 @@ public final class ValkeryCommands {
                 "message.valkery.bow_mastery.upgraded",
                 ValkyrieBowMastery.level(player)
         ));
+        if (ValkyrieBowMastery.level(player) == ValkyrieBowMastery.MAX_LEVEL) {
+            ValkeryAdvancements.award(player, "master_archer", "mastered_bow_magic");
+        }
         return 1;
     }
 

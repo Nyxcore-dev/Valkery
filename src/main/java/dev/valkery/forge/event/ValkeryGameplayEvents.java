@@ -58,8 +58,10 @@ public final class ValkeryGameplayEvents {
     private static final String DIVINE_SMITE_TAG = "valkery_divine_smite";
     private static final String SMITE_FALLOFF_TAG = "valkery_smite_falloff";
     private static final String SMITE_HITS_TAG = "valkery_smite_hits";
+    private static final String GALE_ARROW_TAG = "valkery_gale_arrow";
     private static final String BOW_REFUND_TICK = "valkery_bow_refund_tick";
     private static final String BOW_REFUND_STACK = "valkery_bow_refund_stack";
+    private static final String AERIAL_DASH_TICK = "aerial_dash_tick";
 
     private ValkeryGameplayEvents() {
     }
@@ -83,6 +85,19 @@ public final class ValkeryGameplayEvents {
             }
             event.setAmount(event.getAmount() * multiplier);
             ValkyrieBowMastery.recordBowHit(player);
+            if (arrow.getPersistentData().getBoolean(GALE_ARROW_TAG)) {
+                event.getEntity().addEffect(new MobEffectInstance(
+                        MobEffects.MOVEMENT_SLOWDOWN,
+                        ValkeryConfig.GALE_ARROW_SLOWNESS_TICKS.get(),
+                        0,
+                        true,
+                        true,
+                        true
+                ));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    ValkeryAdvancements.award(serverPlayer, "gale_archer", "landed_gale_arrow");
+                }
+            }
         }
 
     }
@@ -172,7 +187,11 @@ public final class ValkeryGameplayEvents {
                 ValkeryConfig.DIVINE_SMITE_CHANCE.get()
                         + ValkyrieBowMastery.divineSmiteChanceBonus(player)
         );
-        boolean divineSmite = arrow.isCritArrow() && player.getRandom().nextDouble() < smiteChance;
+        boolean chargedCritical = arrow.isCritArrow();
+        boolean divineSmite = chargedCritical && player.getRandom().nextDouble() < smiteChance;
+        boolean galeArrow = chargedCritical
+                && ValkyrieBowMastery.hasGaleArrow(player)
+                && player.getRandom().nextDouble() < ValkeryConfig.GALE_ARROW_CHANCE.get();
         if (divineSmite) {
             arrow.setBaseDamage(arrow.getBaseDamage()
                     * (ValkeryConfig.DIVINE_SMITE_DAMAGE_MULTIPLIER.get()
@@ -185,6 +204,20 @@ public final class ValkeryGameplayEvents {
             );
             player.displayClientMessage(Component.translatable("message.valkery.divine_smite"), true);
             ValkeryAdvancements.award(player, "divine_archer", "divine_smite");
+        }
+        if (galeArrow) {
+            arrow.getPersistentData().putBoolean(GALE_ARROW_TAG, true);
+            player.displayClientMessage(Component.translatable("message.valkery.gale_arrow"), true);
+            player.level().playSound(
+                    null,
+                    player.getX(),
+                    player.getY(),
+                    player.getZ(),
+                    SoundEvents.ELYTRA_FLYING,
+                    SoundSource.PLAYERS,
+                    0.8F,
+                    1.2F
+            );
         }
 
         player.level().playSound(
@@ -559,6 +592,68 @@ public final class ValkeryGameplayEvents {
                 ? DEFAULT_WINGS_ID
                 : ForgeRegistries.ITEMS.getKey(equipped.getItem());
         return equippedId == null ? DEFAULT_WINGS_ID.toString() : equippedId.toString();
+    }
+
+    public static boolean activateAerialDash(ServerPlayer player) {
+        if (!isValkyrie(player) || !player.isFallFlying()) {
+            player.sendSystemMessage(Component.translatable("message.valkery.dash.requires_flight"));
+            return false;
+        }
+
+        int windborneThreshold = ValkeryConfig.WINDBORNE_EXPERIENCE.get();
+        int skywardenThreshold = Math.max(
+                ValkeryConfig.SKYWARDEN_EXPERIENCE.get(),
+                windborneThreshold + 1
+        );
+        if (ValkyrieFlightMastery.rank(player, windborneThreshold, skywardenThreshold)
+                == ValkyrieFlightMastery.Rank.INITIATE) {
+            player.sendSystemMessage(Component.translatable("message.valkery.dash.requires_windborne"));
+            return false;
+        }
+
+        CompoundTag data = ValkyrieFlightMastery.data(player);
+        long now = player.level().getGameTime();
+        long cooldownTicks = ValkeryConfig.AERIAL_DASH_COOLDOWN_SECONDS.get()
+                * ValkyrieBalance.FLIGHT_TICKS_PER_SECOND;
+        if (data.contains(AERIAL_DASH_TICK)) {
+            long remaining = cooldownTicks - (now - data.getLong(AERIAL_DASH_TICK));
+            if (remaining > 0) {
+                player.sendSystemMessage(Component.translatable(
+                        "message.valkery.dash.cooldown",
+                        (remaining + ValkyrieBalance.FLIGHT_TICKS_PER_SECOND - 1)
+                                / ValkyrieBalance.FLIGHT_TICKS_PER_SECOND
+                ));
+                return false;
+            }
+        }
+
+        Vec3 look = player.getLookAngle().normalize();
+        player.setDeltaMovement(player.getDeltaMovement()
+                .add(look.scale(ValkeryConfig.AERIAL_DASH_FORWARD_BOOST.get())
+                        .add(0.0D, ValkeryConfig.AERIAL_DASH_VERTICAL_BOOST.get(), 0.0D)));
+        player.hurtMarked = true;
+        data.putLong(AERIAL_DASH_TICK, now);
+        player.level().playSound(
+                null,
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                SoundEvents.ELYTRA_FLYING,
+                SoundSource.PLAYERS,
+                0.8F,
+                1.35F
+        );
+        player.level().addParticle(
+                net.minecraft.core.particles.ParticleTypes.CLOUD,
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                -look.x * 0.4D,
+                -look.y * 0.4D,
+                -look.z * 0.4D
+        );
+        ValkeryAdvancements.award(player, "gale_dash", "used_aerial_dash");
+        return true;
     }
 
     public static boolean selectWings(ServerPlayer player, String wingId) {

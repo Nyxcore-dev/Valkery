@@ -50,6 +50,10 @@ public final class ValkyrieBowMastery {
         return level(player) * 0.10D;
     }
 
+    public static boolean hasGaleArrow(Player player) {
+        return level(player) >= 3;
+    }
+
     public static CompoundTag data(Player player) {
         CompoundTag persistentData = player.getPersistentData();
         if (!persistentData.contains(DATA_KEY, CompoundTag.TAG_COMPOUND)) {

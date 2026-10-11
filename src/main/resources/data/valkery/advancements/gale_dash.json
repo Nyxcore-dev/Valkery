@@ -1,0 +1,23 @@
+{
+  "parent": "valkery:first_flight",
+  "display": {
+    "icon": {
+      "item": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "advancements.valkery.gale_dash.title"
+    },
+    "description": {
+      "translate": "advancements.valkery.gale_dash.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "used_aerial_dash": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
