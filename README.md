@@ -43,6 +43,10 @@ The Forge jar is written to `build\libs\valkery-0.1.7.jar`. To launch the develo
 
 The project pins Minecraft 1.20.1, Forge 47.4.26, ForgeGradle 6.0.54, official Mojang mappings, and Gradle 8.8.
 
+## Download
+
+Players can download the compiled Forge jar from the [Valkery GitHub Releases](https://github.com/Nyxcore-dev/Valkery/releases) page. Choose the `valkery-0.1.7.jar` asset for Minecraft 1.20.1 and Forge; install Icarus and Curios as required dependencies. Origins is only needed for the Valkyrie Origin selection and its Origin-provided powers.
+
 ## Test in game
 
 With Origins installed, choose Valkyrie from the standard Origin selection screen when creating a world; without Origins, obtain Icarus wings separately. Wings equip automatically in Icarus' back slot and are restored if removed. Choose a color and type with `/valkery wings set dragon purple`, or a unique style with `/valkery wings unique flandres`; `/valkery wings` reports the current selection and usage. Double-tap jump to fly. Slow Falling is granted only during protected descents. Craft or find any bow and arrows; Valkyrie bow damage and Divine Smite apply to any bow. Successful bow hits grant bow XP; use `/valkery bow` to view the skill and `/valkery bow upgrade` to buy a Divine Smite upgrade. Check flight rank and progress with `/valkery mastery`. For balancing, test hunger use, the 60-second Initiate fatigue, grounded recovery, low-food cutoff, and heavy-hit safe descent. Flight XP should only accrue while moving. At higher flight ranks, verify endurance, hunger efficiency, and recovery changes. Use fully charged bow shots against multiple targets to test Divine Smite damage falloff, and test its configured chance over many shots. Verify all five advancements and the spear lightning/cooldown in-game.

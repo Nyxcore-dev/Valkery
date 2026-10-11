@@ -109,8 +109,6 @@ Do not label the mod as Fabric- or NeoForge-compatible based on shared-looking c
 1. Update `mod_version` in `gradle.properties` using the project's version sequence and ensure README artifact examples are current.
 2. Run `.\gradlew.bat clean build --console=plain` with Java 17.
 3. Test the built jar in a clean Minecraft 1.20.1 Forge instance with Icarus and Curios, then separately test Origins plus the required Connector dependency set. Test a dedicated server if gameplay changes affect server state.
-4. Upload only `build\libs\valkery-<version>.jar` to the matching CurseForge project file release. Do not upload `*-sources.jar`, development runs, `.gradle`, or the whole `build` directory as the mod file.
-5. Set the file's Minecraft version and Forge loader metadata correctly. Declare required Icarus/Curios dependencies and explain that Origins is optional for non-Origin gameplay but needed for the Valkyrie Origin choice. Verify CurseForge's dependency entries against the exact supported release files.
+4. Publish a GitHub Release with a version tag such as `v<version>` and attach only `build\libs\valkery-<version>.jar`. For example, after committing and pushing the release source, `gh release create v0.1.7 build\libs\valkery-0.1.7.jar --title "Valkery 0.1.7" --notes "Minecraft 1.20.1 Forge release."`. Do not attach `*-sources.jar`, development runs, `.gradle`, or the whole `build` directory.
+5. Upload the same jar to the matching CurseForge project file release if distributing there. Set Minecraft and Forge metadata correctly. Declare required Icarus/Curios dependencies and explain that Origins is optional for non-Origin gameplay but needed for the Valkyrie Origin choice.
 6. Include release notes, known limitations, and the tested game/loader/dependency versions. A successful Gradle build is not an in-game compatibility test.
-
-This folder currently has no `.git` repository configured, so GitHub commits and pushes must be made from the actual clone/worktree that has the project's Git history and an authorized remote.
